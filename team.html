@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Workspace - NEXUS AI</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="dark-mode">
+  <script>
+    UserManager.requireAuth();
+  </script>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <div class="nav-brand">✨ NEXUS AI</div>
+      <div class="nav-actions">
+        <a href="dashboard.html" class="btn btn-secondary btn-sm">← Back to Dashboard</a>
+        <button class="btn btn-primary btn-sm" onclick="document.querySelector('#invite-modal').classList.add('active')">➕ Invite Member</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Team Layout -->
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <ul class="sidebar-menu">
+        <li class="sidebar-menu-item active" onclick="switchTab('overview', this)">📊 Overview</li>
+        <li class="sidebar-menu-item" onclick="switchTab('members', this)">👥 Members</li>
+        <li class="sidebar-menu-item" onclick="switchTab('projects', this)">📁 Projects</li>
+        <li class="sidebar-menu-item" onclick="switchTab('activity', this)">📋 Activity</li>
+        <li class="sidebar-menu-item" onclick="switchTab('settings', this)">⚙️ Settings</li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Overview Tab -->
+      <div id="overview-tab" class="tab-content">
+        <h2>Team Workspace</h2>
+
+        <div class="grid grid-4" style="margin-bottom: 2rem;">
+          <div class="stat-card">
+            <div class="stat-value">5</div>
+            <div class="stat-label">Team Members</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">12</div>
+            <div class="stat-label">Active Projects</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">324</div>
+            <div class="stat-label">Shared Items</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">98%</div>
+            <div class="stat-label">Collaboration Rate</div>
+          </div>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="card card-glass">
+            <h4>Recent Collaborations</h4>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+              <div style="padding: 1rem; background: rgba(0, 212, 255, 0.1); border-radius: 8px; border-left: 3px solid var(--accent);">
+                <p style="margin: 0 0 0.5rem; font-weight: 600;">AI Marketing Campaign</p>
+                <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">By Sarah Chen • 2 hours ago</p>
+              </div>
+              <div style="padding: 1rem; background: rgba(157, 78, 221, 0.1); border-radius: 8px; border-left: 3px solid var(--accent-purple);">
+                <p style="margin: 0 0 0.5rem; font-weight: 600;">Website Redesign</p>
+                <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">By Mike Rodriguez • 1 day ago</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card card-glass">
+            <h4>Team Performance</h4>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+              <div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                  <span style="font-size: 0.875rem;">Productivity</span>
+                  <span style="color: var(--accent); font-weight: 600;">92%</span>
+                </div>
+                <div style="height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 3px; overflow: hidden;">
+                  <div style="height: 100%; width: 92%; background: linear-gradient(90deg, var(--accent), var(--accent-purple));"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                  <span style="font-size: 0.875rem;">Collaboration</span>
+                  <span style="color: var(--accent); font-weight: 600;">85%</span>
+                </div>
+                <div style="height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 3px; overflow: hidden;">
+                  <div style="height: 100%; width: 85%; background: linear-gradient(90deg, var(--accent), var(--accent-purple));"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Members Tab -->
+      <div id="members-tab" class="tab-content hidden">
+        <h2>Team Members</h2>
+
+        <div class="card card-glass" style="margin-bottom: 2rem;">
+          <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse;">
+              <thead>
+                <tr style="border-bottom: 1px solid var(--border-color);">
+                  <th style="padding: 1rem; text-align: left; color: var(--text-secondary);">Name</th>
+                  <th style="padding: 1rem; text-align: left; color: var(--text-secondary);">Email</th>
+                  <th style="padding: 1rem; text-align: left; color: var(--text-secondary);">Role</th>
+                  <th style="padding: 1rem; text-align: left; color: var(--text-secondary);">Status</th>
+                  <th style="padding: 1rem; text-align: left; color: var(--text-secondary);">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid var(--border-color);">
+                  <td style="padding: 1rem;">👤 You</td>
+                  <td style="padding: 1rem;">user@example.com</td>
+                  <td style="padding: 1rem;"><span class="badge badge-primary">Owner</span></td>
+                  <td style="padding: 1rem;"><span class="badge badge-success">Active</span></td>
+                  <td style="padding: 1rem;"><button class="btn btn-sm btn-ghost">Edit</button></td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-color);">
+                  <td style="padding: 1rem;">👤 Sarah Chen</td>
+                  <td style="padding: 1rem;">sarah@example.com</td>
+                  <td style="padding: 1rem;"><span class="badge" style="background: rgba(255, 170, 0, 0.2); color: var(--warning); border: 1px solid var(--warning);">Admin</span></td>
+                  <td style="padding: 1rem;"><span class="badge badge-success">Active</span></td>
+                  <td style="padding: 1rem;"><button class="btn btn-sm btn-ghost">Edit</button></td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-color);">
+                  <td style="padding: 1rem;">👤 Mike Rodriguez</td>
+                  <td style="padding: 1rem;">mike@example.com</td>
+                  <td style="padding: 1rem;"><span class="badge" style="background: rgba(0, 212, 255, 0.2); color: var(--accent); border: 1px solid var(--accent);">Member</span></td>
+                  <td style="padding: 1rem;"><span class="badge badge-success">Active</span></td>
+                  <td style="padding: 1rem;"><button class="btn btn-sm btn-ghost">Edit</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="document.querySelector('#invite-modal').classList.add('active')">➕ Add Member</button>
+      </div>
+
+      <!-- Projects Tab -->
+      <div id="projects-tab" class="tab-content hidden">
+        <h2>Shared Projects</h2>
+
+        <div class="grid grid-3">
+          <div class="card card-glass">
+            <h4>AI Marketing Campaign</h4>
+            <p style="font-size: 0.875rem; margin: 1rem 0;">Collaborative marketing content creation</p>
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+              <span style="font-size: 0.75rem; padding: 4px 8px; background: rgba(0, 212, 255, 0.2); border-radius: 4px; color: var(--accent);">📝 Content</span>
+              <span style="font-size: 0.75rem; padding: 4px 8px; background: rgba(157, 78, 221, 0.2); border-radius: 4px; color: var(--accent-purple);">🎨 Design</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="display: flex; gap: -8px;">
+                <span style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-purple)); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; border: 2px solid var(--secondary); margin-left: -8px;">👤</span>
+              </div>
+              <button class="btn btn-sm btn-ghost">Open</button>
+            </div>
+          </div>
+
+          <div class="card card-glass">
+            <h4>Website Redesign</h4>
+            <p style="font-size: 0.875rem; margin: 1rem 0;">Complete website UI/UX overhaul</p>
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+              <span style="font-size: 0.75rem; padding: 4px 8px; background: rgba(0, 212, 255, 0.2); border-radius: 4px; color: var(--accent);">🎨 Design</span>
+              <span style="font-size: 0.75rem; padding: 4px 8px; background: rgba(157, 78, 221, 0.2); border-radius: 4px; color: var(--accent-purple);">👨‍💻 Development</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="display: flex; gap: -8px;">
+                <span style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-purple)); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; border: 2px solid var(--secondary); margin-left: -8px;">👤</span>
+              </div>
+              <button class="btn btn-sm btn-ghost">Open</button>
+            </div>
+          </div>
+
+          <div class="card card-glass">
+            <h4>Product Documentation</h4>
+            <p style="font-size: 0.875rem; margin: 1rem 0;">API docs and user guides</p>
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+              <span style="font-size: 0.75rem; padding: 4px 8px; background: rgba(0, 212, 255, 0.2); border-radius: 4px; color: var(--accent);">📝 Documentation</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="display: flex; gap: -8px;">
+                <span style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-purple)); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; border: 2px solid var(--secondary); margin-left: -8px;">👤</span>
+              </div>
+              <button class="btn btn-sm btn-ghost">Open</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity Tab -->
+      <div id="activity-tab" class="tab-content hidden">
+        <h2>Team Activity</h2>
+
+        <div class="card card-glass">
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <div style="padding: 1rem; border-bottom: 1px solid var(--border-color);">
+              <div style="display: flex; gap: 1rem;">
+                <span style="font-size: 1.5rem;">👤</span>
+                <div style="flex: 1;">
+                  <p style="margin: 0; font-weight: 600;">Sarah Chen created a new project</p>
+                  <p style="margin: 0.5rem 0 0; font-size: 0.875rem; color: var(--text-secondary);">AI Marketing Campaign • 2 hours ago</p>
+                </div>
+              </div>
+            </div>
+
+            <div style="padding: 1rem; border-bottom: 1px solid var(--border-color);">
+              <div style="display: flex; gap: 1rem;">
+                <span style="font-size: 1.5rem;">💬</span>
+                <div style="flex: 1;">
+                  <p style="margin: 0; font-weight: 600;">Mike Rodriguez commented on a document</p>
+                  <p style="margin: 0.5rem 0 0; font-size: 0.875rem; color: var(--text-secondary);">Website Redesign • 4 hours ago</p>
+                </div>
+              </div>
+            </div>
+
+            <div style="padding: 1rem;">
+              <div style="display: flex; gap: 1rem;">
+                <span style="font-size: 1.5rem;">📁</span>
+                <div style="flex: 1;">
+                  <p style="margin: 0; font-weight: 600;">Emma Johnson uploaded files</p>
+                  <p style="margin: 0.5rem 0 0; font-size: 0.875rem; color: var(--text-secondary);">Product Documentation • 1 day ago</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings Tab -->
+      <div id="settings-tab" class="tab-content hidden">
+        <h2>Workspace Settings</h2>
+
+        <div class="card card-glass" style="margin-bottom: 2rem;">
+          <h4>General</h4>
+          <div class="form-group">
+            <label class="form-label">Workspace Name</label>
+            <input type="text" class="form-input" value="My Awesome Team">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Workspace Description</label>
+            <textarea class="form-textarea" rows="3">Creative team working on AI projects</textarea>
+          </div>
+        </div>
+
+        <div class="card card-glass" style="margin-bottom: 2rem;">
+          <h4>Permissions</h4>
+          <label style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <input type="checkbox" checked>
+            <span>Allow members to invite others</span>
+          </label>
+          <label style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <input type="checkbox" checked>
+            <span>Allow members to export projects</span>
+          </label>
+          <label style="display: flex; align-items: center; gap: 1rem;">
+            <input type="checkbox">
+            <span>Require two-factor authentication</span>
+          </label>
+        </div>
+
+        <button class="btn btn-primary" onclick="alert('Settings saved!')">💾 Save Changes</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- Invite Modal -->
+  <div id="invite-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Invite Team Members</h3>
+        <button class="modal-close">✕</button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" placeholder="member@example.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Role</label>
+        <select class="form-select">
+          <option>Member</option>
+          <option>Admin</option>
+          <option>Viewer</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" style="width: 100%;" onclick="alert('Invite sent!'); document.querySelector('#invite-modal').classList.remove('active')">Send Invite</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    function switchTab(tabName, element) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+      const tab = document.getElementById(tabName + '-tab');
+      if (tab) tab.classList.remove('hidden');
+
+      document.querySelectorAll('.sidebar-menu-item').forEach(item => item.classList.remove('active'));
+      element.classList.add('active');
+    }
+
+    document.querySelector('.modal-close').addEventListener('click', () => {
+      document.querySelector('#invite-modal').classList.remove('active');
+    });
+
+    document.querySelector('#invite-modal').addEventListener('click', (e) => {
+      if (e.target === document.querySelector('#invite-modal')) {
+        document.querySelector('#invite-modal').classList.remove('active');
+      }
+    });
+
+    Analytics.trackPageView('/team');
+  </script>
+</body>
+</html>

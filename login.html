@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - NEXUS AI</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="dark-mode">
+  <div style="min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; gap: 0;">
+    <!-- Left Side - Branding -->
+    <div style="background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(157, 78, 221, 0.1)); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem; position: relative; overflow: hidden;">
+      <div style="position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(0, 212, 255, 0.3), transparent); border-radius: 50%; top: -100px; right: -100px; animation: float 6s infinite;"></div>
+      <div style="position: absolute; width: 200px; height: 200px; background: radial-gradient(circle, rgba(157, 78, 221, 0.3), transparent); border-radius: 50%; bottom: -50px; left: -50px; animation: float 8s infinite reverse;"></div>
+      
+      <div style="position: relative; z-index: 2; text-align: center;">
+        <div style="font-size: 4rem; margin-bottom: 1rem;">✨</div>
+        <h1 style="margin-bottom: 1rem;">NEXUS AI</h1>
+        <p style="font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 2rem;">The Ultimate AI Super App</p>
+        <p style="color: var(--text-secondary); max-width: 400px; line-height: 1.8;">Chat, Create, Code, and Collaborate with the power of advanced AI. All in one beautiful platform.</p>
+      </div>
+    </div>
+
+    <!-- Right Side - Login Form -->
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem;">
+      <div style="width: 100%; max-width: 400px;">
+        <h2 style="margin-bottom: 0.5rem;">Welcome Back</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Login to your NEXUS AI account</p>
+
+        <form id="login-form">
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-input" name="email" placeholder="you@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-input" name="password" placeholder="••••••••" required>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: var(--text-secondary);">
+              <input type="checkbox" style="cursor: pointer;">
+              <span>Remember me</span>
+            </label>
+            <a href="forgot-password.html" style="color: var(--accent); font-size: 0.875rem;">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">Login to Dashboard</button>
+        </form>
+
+        <div style="position: relative; margin: 2rem 0;">
+          <div style="border-top: 1px solid var(--border-color);"></div>
+          <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--secondary); padding: 0 1rem; color: var(--text-secondary); font-size: 0.875rem;">Or continue with</div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+          <button type="button" class="btn btn-secondary" title="Google" onclick="alert('Google login demo')">
+            <span style="font-size: 1.25rem;">🔵</span>
+          </button>
+          <button type="button" class="btn btn-secondary" title="GitHub" onclick="alert('GitHub login demo')">
+            <span style="font-size: 1.25rem;">⬛</span>
+          </button>
+          <button type="button" class="btn btn-secondary" title="Apple" onclick="alert('Apple login demo')">
+            <span style="font-size: 1.25rem;">🍎</span>
+          </button>
+          <button type="button" class="btn btn-secondary" title="Facebook" onclick="alert('Facebook login demo')">
+            <span style="font-size: 1.25rem;">👥</span>
+          </button>
+        </div>
+
+        <p style="text-align: center; color: var(--text-secondary);">
+          Don't have an account?
+          <a href="signup.html" style="color: var(--accent); font-weight: 600;">Sign up for free</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Two-Factor Authentication Modal -->
+  <div id="2fa-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Two-Factor Authentication</h3>
+      </div>
+      <div style="text-align: center;">
+        <p>Enter the 6-digit code from your authenticator app:</p>
+        <div style="display: flex; gap: 0.5rem; justify-content: center; margin: 2rem 0;">
+          <input type="text" class="form-input" maxlength="1" style="width: 40px; text-align: center; font-size: 1.5rem;">
+          <input type="text" class="form-input" maxlength="1" style="width: 40px; text-align: center; font-size: 1.5rem;">
+          <input type="text" class="form-input" maxlength="1" style="width: 40px; text-align: center; font-size: 1.5rem;">
+          <input type="text" class="form-input" maxlength="1" style="width: 40px; text-align: center; font-size: 1.5rem;">
+          <input type="text" class="form-input" maxlength="1" style="width: 40px; text-align: center; font-size: 1.5rem;">
+          <input type="text" class="form-input" maxlength="1" style="width: 40px; text-align: center; font-size: 1.5rem;">
+        </div>
+        <button class="btn btn-primary" style="width: 100%;">Verify Code</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.querySelector('input[name="email"]').value;
+      const password = document.querySelector('input[name="password"]').value;
+
+      if (!FormValidator.email(email)) {
+        FormValidator.showError(document.querySelector('input[name="email"]'), 'Invalid email');
+        return;
+      }
+
+      if (!FormValidator.password(password)) {
+        FormValidator.showError(document.querySelector('input[name="password"]'), 'Password must be at least 8 characters');
+        return;
+      }
+
+      // Simulate API call
+      try {
+        // Save user info
+        UserManager.setUser({
+          name: 'Creator Name',
+          email: email,
+          avatar: '👤'
+        });
+        localStorage.setItem('token', 'demo_token_' + Date.now());
+
+        Notification.success('Welcome back! Redirecting to dashboard...', 2000);
+        
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 2000);
+      } catch (error) {
+        Notification.error('Login failed. Please try again.');
+      }
+    });
+
+    Analytics.trackPageView('/login');
+  </script>
+</body>
+</html>

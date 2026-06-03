@@ -1,0 +1,40 @@
+{
+  "name": "nexus-ai",
+  "version": "1.0.0",
+  "description": "NEXUS AI - The Ultimate AI Super App with ChatGPT, Midjourney, Notion AI, and more combined",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 8000 -o",
+    "dev": "npx live-server",
+    "build": "echo 'No build needed for static site'",
+    "deploy": "vercel"
+  },
+  "keywords": [
+    "ai",
+    "chat",
+    "image-generation",
+    "code-generation",
+    "saas",
+    "web-app",
+    "ui-ux",
+    "design-system"
+  ],
+  "author": "NEXUS AI Team",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2",
+    "vercel": "^33.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/nexus-ai"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/nexus-ai/issues"
+  },
+  "homepage": "https://nexus-ai.vercel.app",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

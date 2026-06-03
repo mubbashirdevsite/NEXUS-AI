@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - NEXUS AI</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="dark-mode">
+  <div style="min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; gap: 0;">
+    <!-- Left Side - Branding -->
+    <div style="background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(157, 78, 221, 0.1)); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem; position: relative; overflow: hidden;">
+      <div style="position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(0, 212, 255, 0.3), transparent); border-radius: 50%; top: -100px; right: -100px; animation: float 6s infinite;"></div>
+      
+      <div style="position: relative; z-index: 2; text-align: center;">
+        <div style="font-size: 4rem; margin-bottom: 1rem;">🚀</div>
+        <h1 style="margin-bottom: 1rem;">Join NEXUS AI</h1>
+        <p style="font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 2rem;">Start your AI-powered journey today</p>
+        
+        <div style="text-align: left; display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem;">
+          <div style="display: flex; gap: 1rem;">
+            <span style="font-size: 1.5rem;">💬</span>
+            <div>
+              <h4 style="margin: 0;">AI Chat</h4>
+              <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">Talk to advanced AI models</p>
+            </div>
+          </div>
+          <div style="display: flex; gap: 1rem;">
+            <span style="font-size: 1.5rem;">🎨</span>
+            <div>
+              <h4 style="margin: 0;">Generate Content</h4>
+              <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">Images, videos, code & more</p>
+            </div>
+          </div>
+          <div style="display: flex; gap: 1rem;">
+            <span style="font-size: 1.5rem;">👥</span>
+            <div>
+              <h4 style="margin: 0;">Collaborate</h4>
+              <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">Team workspace with real-time sync</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Side - Signup Form -->
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem; overflow-y: auto; max-height: 100vh;">
+      <div style="width: 100%; max-width: 400px;">
+        <h2 style="margin-bottom: 0.5rem;">Create Your Account</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Join millions using NEXUS AI. It's free to start!</p>
+
+        <form id="signup-form">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-input" name="name" placeholder="John Doe" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-input" name="email" placeholder="you@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-input" name="password" placeholder="At least 8 characters" required>
+            <small style="color: var(--text-secondary); font-size: 0.75rem; display: block; margin-top: 0.5rem;">
+              ✓ At least 8 characters &nbsp; ✓ Mix of uppercase & lowercase
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Confirm Password</label>
+            <input type="password" class="form-input" name="confirm-password" placeholder="Re-enter password" required>
+          </div>
+
+          <div class="form-group">
+            <label style="display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer; color: var(--text-secondary); font-size: 0.875rem;">
+              <input type="checkbox" required style="margin-top: 2px;">
+              <span>I agree to the <a href="#" style="color: var(--accent);">Terms of Service</a> and <a href="#" style="color: var(--accent);">Privacy Policy</a></span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">Create Account</button>
+        </form>
+
+        <div style="position: relative; margin: 2rem 0;">
+          <div style="border-top: 1px solid var(--border-color);"></div>
+          <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--secondary); padding: 0 1rem; color: var(--text-secondary); font-size: 0.875rem;">Or sign up with</div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+          <button type="button" class="btn btn-secondary" title="Google" id="google-signup" onclick="SocialAuth.loginGoogle()">
+            <span style="font-size: 1.25rem;">🔵</span>
+          </button>
+          <button type="button" class="btn btn-secondary" title="GitHub" id="github-signup" onclick="SocialAuth.loginGitHub()">
+            <span style="font-size: 1.25rem;">⬛</span>
+          </button>
+          <button type="button" class="btn btn-secondary" title="Apple" id="apple-signup" onclick="SocialAuth.loginApple()">
+            <span style="font-size: 1.25rem;">🍎</span>
+          </button>
+          <button type="button" class="btn btn-secondary" title="Facebook" id="facebook-signup" onclick="SocialAuth.loginFacebook()">
+            <span style="font-size: 1.25rem;">👥</span>
+          </button>
+        </div>
+
+        <p style="text-align: center; color: var(--text-secondary);">
+          Already have an account?
+          <a href="login.html" style="color: var(--accent); font-weight: 600;">Login</a>
+        </p>
+
+        <p style="text-align: center; font-size: 0.75rem; color: var(--text-secondary); margin-top: 2rem;">
+          🔒 Your data is encrypted and secure. We never sell your data.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Email Verification Modal -->
+  <div id="verification-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Verify Your Email</h3>
+      </div>
+      <div style="text-align: center;">
+        <p>We've sent a verification link to your email. Click it to verify your account.</p>
+        <div style="background: rgba(0, 212, 255, 0.1); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.5rem; margin: 2rem 0;">
+          <p id="verification-email" style="font-weight: 600; margin: 0;">your@email.com</p>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.875rem;">Didn't get it? <a href="#" style="color: var(--accent);">Resend email</a></p>
+        <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="alert('Email verified!'); window.location.href = 'dashboard.html'">I've Verified My Email</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.getElementById('signup-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = document.querySelector('input[name="name"]').value.trim();
+      const email = document.querySelector('input[name="email"]').value.trim();
+      const password = document.querySelector('input[name="password"]').value;
+      const confirmPassword = document.querySelector('input[name="confirm-password"]').value;
+
+      // Validation
+      if (!name) {
+        Notification.error('Please enter your name');
+        return;
+      }
+
+      if (!FormValidator.email(email)) {
+        Notification.error('Please enter a valid email');
+        return;
+      }
+
+      if (!FormValidator.password(password)) {
+        Notification.error('Password must be at least 8 characters');
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        Notification.error('Passwords do not match');
+        return;
+      }
+
+      // Save user and redirect to verification
+      UserManager.setUser({
+        name: name,
+        email: email,
+        avatar: '👤'
+      });
+      localStorage.setItem('token', 'demo_token_' + Date.now());
+
+      document.getElementById('verification-email').textContent = email;
+      const modal = new Modal('verification-modal');
+      modal.open();
+
+      // Auto-redirect after 3 seconds for demo
+      setTimeout(() => {
+        window.location.href = 'dashboard.html';
+      }, 5000);
+
+      Analytics.trackEvent('user_signup', { email: email });
+    });
+
+    // Auto-focus next input on OTP-like fields
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Backspace' && e.target.maxLength === 1 && e.target.value === '') {
+        e.target.previousElementSibling?.focus();
+      } else if (e.target.maxLength === 1 && e.target.value) {
+        e.target.nextElementSibling?.focus();
+      }
+    });
+
+    Analytics.trackPageView('/signup');
+  </script>
+</body>
+</html>

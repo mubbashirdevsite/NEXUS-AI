@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - NEXUS AI</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="dark-mode">
+  <script>
+    // Protect dashboard - require authentication
+    if (!localStorage.getItem('user')) {
+      window.location.href = 'login.html';
+    }
+  </script>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand" style="text-decoration: none; cursor: pointer;">✨ NEXUS AI</a>
+      <div class="nav-actions">
+        <div class="theme-toggle">
+          <button class="theme-option active" data-theme="dark">🌙</button>
+          <button class="theme-option" data-theme="light">☀️</button>
+        </div>
+        <button class="btn btn-icon btn-secondary" title="Notifications" onclick="alert('3 new notifications')">🔔</button>
+        <button class="btn btn-icon btn-secondary" title="Profile" onclick="document.querySelector('#profile-modal').classList.add('active')">👤</button>
+        <button class="btn btn-secondary btn-sm" onclick="UserManager.logout()">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Dashboard Layout -->
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <ul class="sidebar-menu">
+        <li class="sidebar-menu-item active" onclick="switchTab('chat', this)">💬 Chat</li>
+        <li class="sidebar-menu-item" onclick="switchTab('images', this)">🎨 Images</li>
+        <li class="sidebar-menu-item" onclick="switchTab('videos', this)">🎬 Videos</li>
+        <li class="sidebar-menu-item" onclick="switchTab('code', this)">👨‍💻 Code</li>
+        <li class="sidebar-menu-item" onclick="switchTab('writer', this)">✍️ Writer</li>
+        <li class="sidebar-menu-item" onclick="switchTab('logo', this)">🎯 Logo</li>
+        <li class="sidebar-menu-item" onclick="switchTab('learning', this)">📚 Learning</li>
+        <li class="sidebar-menu-item" onclick="switchTab('finance', this)">💰 Finance</li>
+      </ul>
+      
+      <div style="border-top: 1px solid var(--border-color); padding-top: var(--spacing-lg); margin-top: var(--spacing-lg);">
+        <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: var(--spacing-md);">Premium Account</p>
+        <div class="stat-card" style="text-align: left; margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <span style="font-size: 0.875rem; color: var(--text-secondary);">API Usage</span>
+            <span style="font-size: 0.875rem; color: var(--accent);">68%</span>
+          </div>
+          <div style="height: 4px; background: rgba(255, 255, 255, 0.1); border-radius: 2px; overflow: hidden;">
+            <div style="height: 100%; width: 68%; background: linear-gradient(90deg, var(--accent), var(--accent-purple));"></div>
+          </div>
+        </div>
+        <a href="#" class="btn btn-sm btn-primary" style="width: 100%; text-align: center;">Upgrade Plan</a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <div>
+          <h2 id="tab-title">Welcome back, Creator! 👋</h2>
+          <p id="tab-subtitle" style="color: var(--text-secondary); margin: 0; font-size: 0.95rem;">Let's create something amazing today</p>
+        </div>
+        <div style="display: flex; gap: 1rem;">
+          <button class="btn btn-secondary" onclick="alert('History opened')">📋 History</button>
+          <button class="btn btn-primary" onclick="alert('New project created')">➕ New</button>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-4" style="margin-bottom: 2rem;">
+        <div class="stat-card">
+          <div class="stat-value">847</div>
+          <div class="stat-label">Total Outputs</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">14h 32m</div>
+          <div class="stat-label">Time Saved</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">42</div>
+          <div class="stat-label">Active Projects</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">Pro</div>
+          <div class="stat-label">Account Status</div>
+        </div>
+      </div>
+
+      <!-- AI Chat Tab -->
+      <div id="chat-tab" class="tab-content">
+        <div class="grid grid-2">
+          <div class="chat-container" style="grid-column: 1 / -1;">
+            <div class="chat-messages">
+              <div class="message">
+                <div class="message-avatar">🤖</div>
+                <div class="message-content">Hello! I'm your NEXUS AI Assistant. How can I help you today?</div>
+              </div>
+              <div class="message user">
+                <div class="message-avatar">👤</div>
+                <div class="message-content">Hi! Can you explain quantum computing?</div>
+              </div>
+              <div class="message">
+                <div class="message-avatar">🤖</div>
+                <div class="message-content">Quantum computing uses quantum bits (qubits) that can exist in multiple states simultaneously, unlike classical bits which are either 0 or 1. This allows quantum computers to process certain types of problems exponentially faster than classical computers.</div>
+              </div>
+            </div>
+            <div class="chat-input-area">
+              <input type="text" class="chat-input chat-send-input" placeholder="Ask me anything...">
+              <button class="btn btn-primary btn-icon chat-send-btn" title="Send">✈️</button>
+            </div>
+          </div>
+
+          <div class="card card-glass" style="grid-column: 1 / -1;">
+            <h4>Chat Features</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+              <button class="btn btn-secondary" id="voice-chat-btn">🎙️ Voice Chat</button>
+              <button class="btn btn-secondary" id="upload-files-btn">📎 Upload Files</button>
+              <button class="btn btn-secondary" id="pdf-summarize-btn">📄 Summarize PDF</button>
+              <button class="btn btn-secondary" id="translate-btn">🌍 Translate</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Images Tab -->
+      <div id="images-tab" class="tab-content hidden">
+        <div class="card card-glass" style="margin-bottom: 2rem;">
+          <h4>Text-to-Image Generator</h4>
+          <div class="form-group">
+            <label class="form-label">Describe your image</label>
+            <textarea id="image-description" class="form-textarea" rows="4" placeholder="A futuristic city with neon lights, cyberpunk style, 4K resolution..."></textarea>
+          </div>
+          <div class="grid grid-2" style="gap: 1rem; margin-bottom: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Art Style</label>
+              <select id="art-style" class="form-select">
+                <option>Photorealistic</option>
+                <option>Oil Painting</option>
+                <option>Digital Art</option>
+                <option>Anime</option>
+                <option>3D Render</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Quality</label>
+              <select id="image-quality" class="form-select">
+                <option>Standard (512x512)</option>
+                <option>HD (1024x1024)</option>
+                <option>Ultra HD (2048x2048)</option>
+              </select>
+            </div>
+          </div>
+          <button id="generate-image-btn" class="btn btn-primary" style="width: 100%; position: relative;">🎨 Generate Image</button>
+          <div id="generate-status" style="margin-top: 1rem; display: none; padding: 1rem; background: rgba(0, 212, 255, 0.1); border-radius: 8px; text-align: center; color: var(--accent);">
+            ⏳ Generating your image...
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h4 style="margin: 0;">Gallery</h4>
+          <button class="btn btn-secondary btn-sm" onclick="switchTab('images', document.querySelector('.sidebar-menu-item:nth-child(2)')); displayImageHistory();">📋 History</button>
+        </div>
+        <div id="gallery-container" class="grid grid-3">
+          <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--text-secondary);">
+            <p style="font-size: 1rem;">No images generated yet. Start by describing an image above!</p>
+          </div>
+        </div>
+
+        <!-- History Section -->
+        <div id="history-section" style="display: none; margin-top: 3rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h4 style="margin: 0;">📋 Generation History</h4>
+            <button class="btn btn-ghost btn-sm" onclick="clearAllHistory()" style="color: var(--error);">🗑️ Clear All</button>
+          </div>
+          <div id="history-container" class="grid grid-4">
+            <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: var(--text-secondary);">
+              <p>No history yet</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Videos Tab -->
+      <div id="videos-tab" class="tab-content hidden">
+        <div class="grid grid-2">
+          <div class="card card-glass">
+            <h4>Video Templates</h4>
+            <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="alert('YouTube intro template selected')">📺 YouTube Intro</button>
+              <button class="btn btn-secondary" onclick="alert('TikTok template selected')">🎵 TikTok Viral</button>
+              <button class="btn btn-secondary" onclick="alert('Commercial template selected')">🎬 Commercial</button>
+              <button class="btn btn-secondary" onclick="alert('Educational template selected')">📚 Educational</button>
+            </div>
+          </div>
+
+          <div class="card card-glass">
+            <h4>AI Avatars</h4>
+            <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem;">
+              <button class="btn btn-secondary">👨‍🎤 Male Avatar 1</button>
+              <button class="btn btn-secondary">👩‍🎤 Female Avatar 1</button>
+              <button class="btn btn-secondary">🤖 AI Bot</button>
+              <button class="btn btn-secondary">🎭 Custom Avatar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-glass" style="margin-top: 2rem;">
+          <h4>Create New Video</h4>
+          <div class="form-group">
+            <label class="form-label">Video Title</label>
+            <input id="video-title" type="text" class="form-input" placeholder="Enter video title...">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Script or Description</label>
+            <textarea id="video-script" class="form-textarea" rows="4" placeholder="What should your video be about?"></textarea>
+          </div>
+          <button id="generate-video-btn" class="btn btn-primary" style="width: 100%;">🎬 Generate Video</button>
+          <div id="video-status" style="margin-top: 1rem; display: none; padding: 1rem; background: rgba(0, 212, 255, 0.1); border-radius: 8px; text-align: center; color: var(--accent);">⏳ Generating your video...</div>
+        </div>
+      </div>
+
+      <!-- AI Code Tab -->
+      <div id="code-tab" class="tab-content hidden">
+        <div class="card card-glass" style="margin-bottom: 2rem;">
+          <h4>Code Generator</h4>
+          <div class="form-group">
+            <label class="form-label">What do you want to build?</label>
+            <input id="code-description" type="text" class="form-input" placeholder="e.g., A React component for a user profile...">
+          </div>
+          <div class="grid grid-2" style="gap: 1rem; margin-bottom: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Language</label>
+              <select id="code-language" class="form-select">
+                <option>JavaScript</option>
+                <option>Python</option>
+                <option>React</option>
+                <option>Java</option>
+                <option>C++</option>
+                <option>TypeScript</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Level</label>
+              <select id="code-level" class="form-select">
+                <option>Beginner</option>
+                <option>Intermediate</option>
+                <option>Advanced</option>
+              </select>
+            </div>
+          </div>
+          <button id="generate-code-btn" class="btn btn-primary" style="width: 100%;">👨‍💻 Generate Code</button>
+        </div>
+
+        <div class="card card-glass">
+          <h4>Code Output</h4>
+          <div style="background: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 1rem; margin: 1rem 0; font-family: 'Courier New', monospace; font-size: 0.875rem; overflow-x: auto;">
+            <pre><code>function HelloWorld() {
+  return (
+    &lt;div className="greeting"&gt;
+      &lt;h1&gt;Hello, NEXUS AI! 🚀&lt;/h1&gt;
+      &lt;p&gt;Generated with AI&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+          </div>
+          <div style="display: flex; gap: 1rem;">
+            <button class="btn btn-secondary">📋 Copy</button>
+            <button class="btn btn-secondary">⬇️ Export</button>
+            <button class="btn btn-secondary">🔍 Explain</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Writer Tab -->
+      <div id="writer-tab" class="tab-content hidden">
+        <div class="card card-glass" style="margin-bottom: 2rem;">
+          <h4>AI Content Writer</h4>
+          <div class="form-group">
+            <label class="form-label">Content Type</label>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem;">
+              <button class="btn btn-secondary content-type-btn" data-type="blog">📝 Blog Post</button>
+              <button class="btn btn-secondary content-type-btn" data-type="social">📱 Social Media</button>
+              <button class="btn btn-secondary content-type-btn" data-type="email">📧 Email</button>
+              <button class="btn btn-secondary content-type-btn" data-type="product">🛍️ Product Desc</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Topic or Brief</label>
+            <textarea id="writer-topic" class="form-textarea" rows="4" placeholder="Describe what you want written..."></textarea>
+          </div>
+          <input type="hidden" id="selected-content-type" value="blog">
+          <button id="generate-content-btn" class="btn btn-primary" style="width: 100%;">✍️ Generate Content</button>
+        </div>
+
+        <div class="card card-glass">
+          <h4>AI Tools</h4>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+            <button class="btn btn-secondary">🔧 Paraphrase</button>
+            <button class="btn btn-secondary">✅ Grammar Check</button>
+            <button class="btn btn-secondary">🔍 SEO Optimize</button>
+            <button class="btn btn-secondary">🚫 Plagiarism Check</button>
+            <button class="btn btn-secondary">📈 Keyword Research</button>
+            <button class="btn btn-secondary">📊 Tone Analyzer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Logo Tab -->
+      <div id="logo-tab" class="tab-content hidden">
+        <div class="card card-glass" style="margin-bottom: 2rem;">
+          <h4>Logo & Brand Kit Generator</h4>
+          <div class="form-group">
+            <label class="form-label">Company/Brand Name</label>
+            <input id="brand-name" type="text" class="form-input" placeholder="Enter your brand name...">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Industry</label>
+            <select id="brand-industry" class="form-select">
+              <option>Technology</option>
+              <option>E-commerce</option>
+              <option>Healthcare</option>
+              <option>Finance</option>
+              <option>Creative</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Brand Description</label>
+            <textarea id="brand-description" class="form-textarea" rows="3" placeholder="Describe your brand..."></textarea>
+          </div>
+          <button id="generate-logo-btn" class="btn btn-primary" style="width: 100%;">🎯 Generate Logo</button>
+          <div id="logo-output" style="margin-top: 2rem; display: none;"></div>
+        </div>
+
+        <h4>Brand Kits</h4>
+        <div class="grid grid-3">
+          <div class="card card-glass">
+            <div style="background: linear-gradient(135deg, #FF6B6B, #FF8E72); width: 100%; height: 100px; border-radius: 8px; margin-bottom: 1rem;"></div>
+            <p style="font-size: 0.875rem;">Primary Colors</p>
+            <p style="margin: 0; color: var(--accent);">#FF6B6B · #FF8E72</p>
+          </div>
+          <div class="card card-glass">
+            <div style="background: linear-gradient(135deg, #4ECDC4, #44A08D); width: 100%; height: 100px; border-radius: 8px; margin-bottom: 1rem;"></div>
+            <p style="font-size: 0.875rem;">Secondary Colors</p>
+            <p style="margin: 0; color: var(--accent);">#4ECDC4 · #44A08D</p>
+          </div>
+          <div class="card card-glass">
+            <div style="background: linear-gradient(135deg, #95E1D3, #F38181); width: 100%; height: 100px; border-radius: 8px; margin-bottom: 1rem;"></div>
+            <p style="font-size: 0.875rem;">Accent Colors</p>
+            <p style="margin: 0; color: var(--accent);">#95E1D3 · #F38181</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Learning Tab -->
+      <div id="learning-tab" class="tab-content hidden">
+        <div class="grid grid-2">
+          <div class="card card-glass">
+            <h4>Learning Modules</h4>
+            <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem;">
+              <button class="btn btn-secondary" onclick="alert('Module loaded')">📚 Python Basics</button>
+              <button class="btn btn-secondary" onclick="alert('Module loaded')">⚛️ React.js</button>
+              <button class="btn btn-secondary" onclick="alert('Module loaded')">🎨 Web Design</button>
+              <button class="btn btn-secondary" onclick="alert('Module loaded')">🤖 AI & ML</button>
+            </div>
+          </div>
+
+          <div class="card card-glass">
+            <h4>Your Progress</h4>
+            <div style="margin-top: 1rem;">
+              <div style="margin-bottom: 1rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                  <span style="font-size: 0.875rem;">Python Basics</span>
+                  <span style="color: var(--accent); font-weight: 600;">65%</span>
+                </div>
+                <div style="height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 3px; overflow: hidden;">
+                  <div style="height: 100%; width: 65%; background: linear-gradient(90deg, var(--accent), var(--accent-purple));"></div>
+                </div>
+              </div>
+              <div style="margin-bottom: 1rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                  <span style="font-size: 0.875rem;">React.js</span>
+                  <span style="color: var(--accent); font-weight: 600;">40%</span>
+                </div>
+                <div style="height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 3px; overflow: hidden;">
+                  <div style="height: 100%; width: 40%; background: linear-gradient(90deg, var(--accent), var(--accent-purple));"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                  <span style="font-size: 0.875rem;">Web Design</span>
+                  <span style="color: var(--accent); font-weight: 600;">85%</span>
+                </div>
+                <div style="height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 3px; overflow: hidden;">
+                  <div style="height: 100%; width: 85%; background: linear-gradient(90deg, var(--accent), var(--accent-purple));"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-glass" style="margin-top: 2rem;">
+          <h4>AI Quiz</h4>
+          <div class="form-group">
+            <label class="form-label">Select Topic</label>
+            <select id="quiz-topic" class="form-select">
+              <option>Variables & Data Types</option>
+              <option>Functions & Loops</option>
+              <option>Object-Oriented Programming</option>
+            </select>
+          </div>
+          <button id="start-quiz-btn" class="btn btn-primary" style="width: 100%;">📝 Start Quiz</button>
+          <div id="quiz-container" style="display: none; margin-top: 2rem;"></div>
+        </div>
+      </div>
+
+      <!-- AI Finance Tab -->
+      <div id="finance-tab" class="tab-content hidden">
+        <div class="grid grid-3">
+          <div class="stat-card">
+            <div class="stat-value">$2,450</div>
+            <div class="stat-label">This Month</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">$5,280</div>
+            <div class="stat-label">Monthly Budget</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">$2,830</div>
+            <div class="stat-label">Available</div>
+          </div>
+        </div>
+
+        <div class="card card-glass" style="margin-top: 2rem;">
+          <h4>Log Expense</h4>
+          <div class="form-group">
+            <label class="form-label">Amount</label>
+            <input id="expense-amount" type="number" class="form-input" placeholder="0.00">
+          </div>
+          <div class="grid grid-2" style="gap: 1rem; margin-bottom: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Category</label>
+              <select id="expense-category" class="form-select">
+                <option>Food & Dining</option>
+                <option>Transportation</option>
+                <option>Entertainment</option>
+                <option>Shopping</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Date</label>
+              <input id="expense-date" type="date" class="form-input">
+            </div>
+          </div>
+          <button id="add-expense-btn" class="btn btn-primary" style="width: 100%;">💰 Add Expense</button>
+          <div id="expenses-list" style="margin-top: 2rem;"></div>
+        </div>
+
+        <div class="card card-glass" style="margin-top: 2rem;">
+          <h4>AI Financial Advisor</h4>
+          <p>Get personalized financial insights and recommendations based on your spending patterns.</p>
+          <button class="btn btn-secondary" style="width: 100%;">🤖 Get Advice</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Profile Modal -->
+  <div id="profile-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>My Profile</h3>
+        <button class="modal-close">✕</button>
+      </div>
+      <div style="text-align: center;">
+        <div style="width: 80px; height: 80px; margin: 1rem auto; background: linear-gradient(135deg, var(--accent), var(--accent-purple)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem;">
+          👤
+        </div>
+        <h4 id="user-name">Creator Name</h4>
+        <p id="user-email" style="margin: 0.5rem 0;">user@example.com</p>
+        <p style="color: var(--text-secondary); margin: 1rem 0;">Pro Member • Joined 3 months ago</p>
+        
+        <div style="margin: 2rem 0; text-align: left; display: flex; flex-direction: column; gap: 1rem;">
+          <button class="btn btn-secondary" style="width: 100%;" onclick="alert('Profile settings opened')">⚙️ Settings</button>
+          <button class="btn btn-secondary" style="width: 100%;" onclick="alert('Billing page opened')">💳 Billing</button>
+          <button class="btn btn-secondary" style="width: 100%;" onclick="alert('Teams page opened')">👥 Teams</button>
+          <button class="btn btn-ghost" style="width: 100%;" onclick="UserManager.logout()">🚪 Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Widget -->
+  <div class="floating-widget" onclick="document.querySelector('#support-modal').classList.add('active')" title="AI Assistant">
+    <span>✨</span>
+  </div>
+
+  <!-- Support Modal -->
+  <div id="support-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>NEXUS AI Assistant</h3>
+        <button class="modal-close">✕</button>
+      </div>
+      <div class="chat-container" style="height: 400px;">
+        <div class="chat-messages">
+          <div class="message">
+            <div class="message-avatar">🤖</div>
+            <div class="message-content">Hi! Need help with anything? I can guide you through features, troubleshoot issues, or answer questions.</div>
+          </div>
+        </div>
+        <div class="chat-input-area">
+          <input type="text" class="chat-input" placeholder="Ask me anything...">
+          <button class="btn btn-primary btn-icon" title="Send">✈️</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Image Modal -->
+  <div id="edit-image-modal" class="modal">
+    <div class="modal-content" style="max-width: 700px;">
+      <div class="modal-header">
+        <h3>Edit Image Details</h3>
+        <button class="modal-close">✕</button>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div>
+          <img id="edit-preview" src="" alt="Preview" style="width: 100%; border-radius: 8px; object-fit: cover;">
+        </div>
+        <div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea id="edit-description" class="form-textarea" rows="3" placeholder="Update image description..."></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Art Style</label>
+            <input id="edit-style" type="text" class="form-input" placeholder="e.g., Photorealistic">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Generated Date</label>
+            <input id="edit-date" type="text" class="form-input" readonly>
+          </div>
+          <div style="display: flex; gap: 1rem;">
+            <button class="btn btn-primary" style="flex: 1;" onclick="saveEditedImage()">💾 Save Changes</button>
+            <button class="btn btn-secondary" style="flex: 1;" onclick="document.querySelector('#edit-image-modal').classList.remove('active')">❌ Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Viewer Modal -->
+  <div id="viewer-modal" class="modal">
+    <div class="modal-content" style="max-width: 90vw; max-height: 90vh;">
+      <div class="modal-header">
+        <h3 id="viewer-title">Image Viewer</h3>
+        <button class="modal-close">✕</button>
+      </div>
+      <img id="viewer-image" src="" alt="Full View" style="width: 100%; max-height: 70vh; object-fit: contain; border-radius: 8px;">
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Global variable to store current editing image
+    let currentEditingImage = null;
+
+    // Tab switching
+    function switchTab(tabName, element) {
+      // Hide all tabs
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+      
+      // Show selected tab
+      const tab = document.getElementById(tabName + '-tab');
+      if (tab) tab.classList.remove('hidden');
+
+      // Update sidebar
+      document.querySelectorAll('.sidebar-menu-item').forEach(item => item.classList.remove('active'));
+      element.classList.add('active');
+
+      // Update header
+      const titles = {
+        'chat': 'AI Chat Assistant',
+        'images': 'AI Image Generator',
+        'videos': 'AI Video Creator',
+        'code': 'AI Code Assistant',
+        'writer': 'AI Content Writer',
+        'logo': 'Logo & Brand Kit',
+        'learning': 'Learning Hub',
+        'finance': 'Finance Manager'
+      };
+
+      document.getElementById('tab-title').textContent = titles[tabName] + ' 🎯';
+      document.getElementById('tab-subtitle').textContent = 'Powered by advanced AI models';
+    }
+
+    // Image Generator Function
+    function generateImage() {
+      const description = document.getElementById('image-description').value.trim();
+      const artStyle = document.getElementById('art-style').value;
+      const quality = document.getElementById('image-quality').value;
+      
+      // Validation
+      if (!description) {
+        Notification.warning('Please describe the image you want to generate');
+        return;
+      }
+
+      // Show loading state
+      const btn = document.getElementById('generate-image-btn');
+      const statusDiv = document.getElementById('generate-status');
+      btn.disabled = true;
+      statusDiv.style.display = 'block';
+      btn.textContent = '⏳ Generating...';
+
+      // Simulate API call
+      setTimeout(() => {
+        // Generate a random placeholder image
+        const canvas = document.createElement('canvas');
+        const width = quality.includes('2048') ? 2048 : quality.includes('1024') ? 1024 : 512;
+        canvas.width = width;
+        canvas.height = width;
+        const ctx = canvas.getContext('2d');
+
+        // Create a gradient background
+        const gradient = ctx.createLinearGradient(0, 0, width, width);
+        gradient.addColorStop(0, 'rgba(0, 212, 255, 0.3)');
+        gradient.addColorStop(1, 'rgba(157, 78, 221, 0.3)');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, width, width);
+
+        // Add text overlay
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.font = 'bold 24px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('Generated Image', width / 2, width / 2 - 30);
+        ctx.font = '16px Arial';
+        ctx.fillText(artStyle, width / 2, width / 2 + 10);
+        ctx.fillText(`${quality} • ${description.substring(0, 30)}...`, width / 2, width / 2 + 40);
+
+        // Convert to image
+        const imageUrl = canvas.toDataURL('image/png');
+
+        // Add to gallery
+        addImageToGallery(imageUrl, description, artStyle, quality);
+
+        // Reset button
+        btn.disabled = false;
+        statusDiv.style.display = 'none';
+        btn.textContent = '🎨 Generate Image';
+
+        // Clear input
+        document.getElementById('image-description').value = '';
+
+        // Show success message
+        Notification.success('Image generated successfully! ✨');
+
+        // Save to history
+        saveImageToHistory({
+          image: imageUrl,
+          description: description,
+          style: artStyle,
+          quality: quality,
+          date: new Date().toISOString()
+        });
+      }, 2000);
+    }
+
+    // Add image to gallery
+    function addImageToGallery(imageUrl, description, style, quality) {
+      const gallery = document.getElementById('gallery-container');
+      if (!gallery) return;
+
+      // Clear placeholder if it exists
+      if (gallery.querySelector('div:last-child p')) {
+        gallery.innerHTML = '';
+      }
+
+      const newCard = document.createElement('div');
+      newCard.className = 'card card-glass';
+      newCard.style.cssText = 'position: relative; overflow: hidden; aspect-ratio: 1;';
+      
+      const imgContainer = document.createElement('div');
+      imgContainer.style.cssText = 'width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;';
+      
+      const img = document.createElement('img');
+      img.src = imageUrl;
+      img.style.cssText = 'width: 100%; height: 100%; object-fit: cover;';
+      imgContainer.appendChild(img);
+
+      const overlay = document.createElement('div');
+      overlay.style.cssText = 'position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); opacity: 0; transition: opacity 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap; padding: 1rem;';
+      
+      overlay.innerHTML = `
+        <button class="btn btn-sm btn-primary" onclick="viewImage('${imageUrl}', '${description}')">👁️ View</button>
+        <button class="btn btn-sm btn-secondary" onclick="editImage('${imageUrl}', '${description}', '${style}')">✏️ Edit</button>
+        <button class="btn btn-sm btn-secondary" onclick="downloadImage('${imageUrl}')">⬇️ Download</button>
+      `;
+
+      newCard.appendChild(imgContainer);
+      newCard.appendChild(overlay);
+
+      newCard.addEventListener('mouseenter', () => overlay.style.opacity = '1');
+      newCard.addEventListener('mouseleave', () => overlay.style.opacity = '0');
+
+      // Insert at the beginning of gallery
+      gallery.insertBefore(newCard, gallery.firstChild);
+    }
+
+    // View image in modal
+    function viewImage(imageUrl, description) {
+      const modal = document.getElementById('viewer-modal');
+      const viewer = document.getElementById('viewer-image');
+      const title = document.getElementById('viewer-title');
+      viewer.src = imageUrl;
+      title.textContent = description || 'Image Viewer';
+      modal.classList.add('active');
+    }
+
+    // Edit image
+    function editImage(imageUrl, description, style) {
+      const modal = document.getElementById('edit-image-modal');
+      document.getElementById('edit-preview').src = imageUrl;
+      document.getElementById('edit-description').value = description;
+      document.getElementById('edit-style').value = style;
+      document.getElementById('edit-date').value = new Date().toLocaleString();
+      currentEditingImage = imageUrl;
+      modal.classList.add('active');
+    }
+
+    // Save edited image
+    function saveEditedImage() {
+      const newDescription = document.getElementById('edit-description').value;
+      const newStyle = document.getElementById('edit-style').value;
+
+      if (!newDescription.trim()) {
+        Notification.warning('Description cannot be empty');
+        return;
+      }
+
+      // Update the image in history
+      let history = JSON.parse(localStorage.getItem('imageHistory')) || [];
+      const imageIndex = history.findIndex(img => img.image === currentEditingImage);
+      
+      if (imageIndex !== -1) {
+        history[imageIndex].description = newDescription;
+        history[imageIndex].style = newStyle;
+        localStorage.setItem('imageHistory', JSON.stringify(history));
+      }
+
+      Notification.success('Image details updated! ✨');
+      document.getElementById('edit-image-modal').classList.remove('active');
+      displayImageHistory();
+    }
+
+    // Download image
+    function downloadImage(imageUrl) {
+      const a = document.createElement('a');
+      a.href = imageUrl;
+      a.download = 'nexus-ai-generated-' + Date.now() + '.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      Notification.success('Image downloaded! ⬇️');
+    }
+
+    // Save image history
+    function saveImageToHistory(imageData) {
+      let history = JSON.parse(localStorage.getItem('imageHistory')) || [];
+      history.unshift(imageData);
+      if (history.length > 50) history.pop(); // Keep only last 50
+      localStorage.setItem('imageHistory', JSON.stringify(history));
+    }
+
+    // Display image history
+    function displayImageHistory() {
+      const history = JSON.parse(localStorage.getItem('imageHistory')) || [];
+      const historySection = document.getElementById('history-section');
+      const historyContainer = document.getElementById('history-container');
+
+      if (history.length === 0) {
+        historyContainer.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: var(--text-secondary);"><p>No history yet</p></div>';
+        historySection.style.display = 'none';
+        return;
+      }
+
+      historySection.style.display = 'block';
+      historyContainer.innerHTML = '';
+
+      history.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'card card-glass';
+        card.style.cssText = 'position: relative; overflow: hidden; aspect-ratio: 1; cursor: pointer;';
+        
+        const img = document.createElement('img');
+        img.src = item.image;
+        img.style.cssText = 'width: 100%; height: 100%; object-fit: cover;';
+        
+        const overlay = document.createElement('div');
+        overlay.style.cssText = 'position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.8); opacity: 0; transition: opacity 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap; padding: 0.5rem;';
+        
+        overlay.innerHTML = `
+          <button class="btn btn-sm btn-primary" onclick="viewImage('${item.image}', '${item.description}')">👁️</button>
+          <button class="btn btn-sm btn-secondary" onclick="editImage('${item.image}', '${item.description}', '${item.style}')">✏️</button>
+          <button class="btn btn-sm btn-secondary" onclick="downloadImage('${item.image}')">⬇️</button>
+          <button class="btn btn-sm btn-ghost" onclick="deleteFromHistory(${index})" style="color: var(--error);">🗑️</button>
+        `;
+
+        card.appendChild(img);
+        card.appendChild(overlay);
+
+        card.addEventListener('mouseenter', () => overlay.style.opacity = '1');
+        card.addEventListener('mouseleave', () => overlay.style.opacity = '0');
+
+        historyContainer.appendChild(card);
+      });
+    }
+
+    // Delete from history
+    function deleteFromHistory(index) {
+      let history = JSON.parse(localStorage.getItem('imageHistory')) || [];
+      history.splice(index, 1);
+      localStorage.setItem('imageHistory', JSON.stringify(history));
+      Notification.success('Image removed from history');
+      displayImageHistory();
+    }
+
+    // Clear all history
+    function clearAllHistory() {
+      if (confirm('Are you sure you want to clear all history? This cannot be undone.')) {
+        localStorage.removeItem('imageHistory');
+        document.getElementById('history-section').style.display = 'none';
+        document.getElementById('gallery-container').innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--text-secondary);"><p>No images generated yet. Start by describing an image above!</p></div>';
+        Notification.success('History cleared!');
+      }
+    }
+
+    // Load user data and initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = JSON.parse(localStorage.getItem('user')) || {};
+      document.getElementById('user-name').textContent = user.name || 'Creator Name';
+      document.getElementById('user-email').textContent = user.email || 'user@example.com';
+
+      // Initialize chat
+      new ChatInterface('.chat-container');
+
+      // Setup image generator button
+      const generateBtn = document.getElementById('generate-image-btn');
+      if (generateBtn) {
+        generateBtn.addEventListener('click', generateImage);
+      }
+
+      // Load and display image history
+      displayImageHistory();
+
+      // Setup chat feature buttons
+      setupChatFeatures();
+
+      // Setup Writer content type buttons
+      setupWriterContentTypes();
+
+      // Setup Video Generator
+      document.getElementById('generate-video-btn')?.addEventListener('click', generateVideo);
+
+      // Setup Code Generator
+      document.getElementById('generate-code-btn')?.addEventListener('click', generateCode);
+
+      // Setup Content Generator
+      document.getElementById('generate-content-btn')?.addEventListener('click', generateContent);
+
+      // Setup Logo Generator
+      document.getElementById('generate-logo-btn')?.addEventListener('click', generateLogo);
+
+      // Setup Quiz
+      document.getElementById('start-quiz-btn')?.addEventListener('click', startQuiz);
+
+      // Setup Expenses
+      document.getElementById('add-expense-btn')?.addEventListener('click', addExpense);
+      loadExpenses();
+
+      // Setup modal close buttons
+      document.querySelectorAll('.modal-close').forEach(btn => {
+        btn.addEventListener('click', () => {
+          btn.closest('.modal').classList.remove('active');
+        });
+      });
+
+      // Close modal on background click
+      document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) modal.classList.remove('active');
+        });
+      });
+    });
+
+    // Chat Features Setup
+    function setupChatFeatures() {
+      // Voice Chat
+      document.getElementById('voice-chat-btn')?.addEventListener('click', () => {
+        const chatInput = document.querySelector('.chat-send-input');
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+          const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+          const recognition = new SpeechRecognition();
+          recognition.lang = 'en-US';
+          recognition.start();
+          
+          recognition.onstart = () => {
+            Notification.info('🎙️ Listening... speak now!');
+          };
+          
+          recognition.onresult = (event) => {
+            let transcript = '';
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+              transcript += event.results[i][0].transcript;
+            }
+            chatInput.value = transcript;
+            Notification.success('Voice captured! 🎙️');
+          };
+          
+          recognition.onerror = () => {
+            Notification.error('Voice recognition not supported or failed');
+          };
+        } else {
+          Notification.warning('Voice Chat not supported in your browser');
+        }
+      });
+
+      // Upload Files
+      document.getElementById('upload-files-btn')?.addEventListener('click', () => {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*,application/pdf,.doc,.docx,.txt';
+        input.onchange = (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            const chatMessages = document.querySelector('.chat-messages');
+            const fileMsg = document.createElement('div');
+            fileMsg.className = 'message user';
+            fileMsg.innerHTML = `
+              <div class="message-avatar">👤</div>
+              <div class="message-content" style="background: rgba(0, 212, 255, 0.2); padding: 10px; border-radius: 8px;">
+                📎 Uploaded: ${file.name} (${(file.size / 1024).toFixed(2)} KB)
+              </div>
+            `;
+            chatMessages.appendChild(fileMsg);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            Notification.success('File uploaded! ✅');
+            
+            // Simulate AI processing
+            setTimeout(() => {
+              const aiMsg = document.createElement('div');
+              aiMsg.className = 'message';
+              aiMsg.innerHTML = `
+                <div class="message-avatar">🤖</div>
+                <div class="message-content">
+                  ✅ File received! I can help you with:\n• Summarize the content\n• Extract key points\n• Answer questions about it\n• Translate it\n\nWhat would you like me to do?
+                </div>
+              `;
+              chatMessages.appendChild(aiMsg);
+              chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000);
+          }
+        };
+        input.click();
+      });
+
+      // Summarize PDF
+      document.getElementById('pdf-summarize-btn')?.addEventListener('click', () => {
+        const chatMessages = document.querySelector('.chat-messages');
+        const userMsg = document.createElement('div');
+        userMsg.className = 'message user';
+        userMsg.innerHTML = `
+          <div class="message-avatar">👤</div>
+          <div class="message-content">Summarize this PDF for me 📄</div>
+        `;
+        chatMessages.appendChild(userMsg);
+        
+        // Show loading
+        const loadingMsg = document.createElement('div');
+        loadingMsg.className = 'message';
+        loadingMsg.innerHTML = `
+          <div class="message-avatar">🤖</div>
+          <div class="message-content" style="display: flex; gap: 4px; align-items: center;">
+            <span style="animation: bounce 1.4s infinite;">●</span>
+            <span style="animation: bounce 1.4s infinite; animation-delay: 0.2s;">●</span>
+            <span style="animation: bounce 1.4s infinite; animation-delay: 0.4s;">●</span>
+          </div>
+        `;
+        chatMessages.appendChild(loadingMsg);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        // Simulate PDF summarization
+        setTimeout(() => {
+          loadingMsg.remove();
+          const summaryMsg = document.createElement('div');
+          summaryMsg.className = 'message';
+          summaryMsg.innerHTML = `
+            <div class="message-avatar">🤖</div>
+            <div class="message-content">
+              📄 **PDF Summary:**\n\n• This document contains important information\n• Key points have been extracted\n• Main topics covered:\n  - Introduction\n  - Main content\n  - Conclusion\n\nWould you like a more detailed summary? 📋
+            </div>
+          `;
+          chatMessages.appendChild(summaryMsg);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+          Notification.success('PDF summarized! 📄');
+        }, 2000);
+      });
+
+      // Translate
+      document.getElementById('translate-btn')?.addEventListener('click', () => {
+        const chatMessages = document.querySelector('.chat-messages');
+        const userMsg = document.createElement('div');
+        userMsg.className = 'message user';
+        userMsg.innerHTML = `
+          <div class="message-avatar">👤</div>
+          <div class="message-content">Translate this to Urdu 🌍</div>
+        `;
+        chatMessages.appendChild(userMsg);
+        
+        // Show loading
+        const loadingMsg = document.createElement('div');
+        loadingMsg.className = 'message';
+        loadingMsg.innerHTML = `
+          <div class="message-avatar">🤖</div>
+          <div class="message-content" style="display: flex; gap: 4px; align-items: center;">
+            <span style="animation: bounce 1.4s infinite;">●</span>
+            <span style="animation: bounce 1.4s infinite; animation-delay: 0.2s;">●</span>
+            <span style="animation: bounce 1.4s infinite; animation-delay: 0.4s;">●</span>
+          </div>
+        `;
+        chatMessages.appendChild(loadingMsg);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        // Simulate translation
+        setTimeout(() => {
+          loadingMsg.remove();
+          const translationMsg = document.createElement('div');
+          translationMsg.className = 'message';
+          translationMsg.innerHTML = `
+            <div class="message-avatar">🤖</div>
+            <div class="message-content">
+              🌍 **Translation (English → Urdu):**\n\n**Original:** "I can help you with many things"\n\n**اردو میں:** "میں آپ کو بہت سی چیزوں میں مدد کر سکتا ہوں"\n\nWhat else would you like to translate? 🗣️
+            </div>
+          `;
+          chatMessages.appendChild(translationMsg);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+          Notification.success('Translation complete! 🌍');
+        }, 1500);
+      });
+    }
+
+    // Writer Content Type Selection
+    function setupWriterContentTypes() {
+      document.querySelectorAll('.content-type-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.content-type-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          document.getElementById('selected-content-type').value = btn.dataset.type;
+        });
+      });
+      document.querySelector('.content-type-btn').click();
+    }
+
+    // Video Generator
+    function generateVideo() {
+      const title = document.getElementById('video-title')?.value.trim();
+      const script = document.getElementById('video-script')?.value.trim();
+      
+      if (!title || !script) {
+        Notification.warning('Please fill in all fields');
+        return;
+      }
+
+      const btn = document.getElementById('generate-video-btn');
+      const status = document.getElementById('video-status');
+      btn.disabled = true;
+      status.style.display = 'block';
+      btn.textContent = '⏳ Generating...';
+
+      setTimeout(() => {
+        btn.disabled = false;
+        status.style.display = 'none';
+        btn.textContent = '🎬 Generate Video';
+        document.getElementById('video-title').value = '';
+        document.getElementById('video-script').value = '';
+        Notification.success(`Video "${title}" generated successfully! 🎬`);
+      }, 3000);
+    }
+
+    // Code Generator
+    function generateCode() {
+      const description = document.getElementById('code-description')?.value.trim();
+      const language = document.getElementById('code-language')?.value;
+      const level = document.getElementById('code-level')?.value;
+      
+      if (!description) {
+        Notification.warning('Please describe what you want to build');
+        return;
+      }
+
+      const btn = document.getElementById('generate-code-btn');
+      btn.disabled = true;
+      btn.textContent = '⏳ Generating...';
+
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.textContent = '👨‍💻 Generate Code';
+        document.getElementById('code-description').value = '';
+        
+        const codeExamples = {
+          'JavaScript': 'const greeting = "Hello, World!";\\nconsole.log(greeting);',
+          'Python': 'print("Hello, World!")',
+          'React': 'function App() { return <h1>Hello React!</h1>; }',
+          'Java': 'System.out.println("Hello, World!");',
+          'C++': '#include <iostream>\\nusing namespace std;\\nint main() { cout << "Hello!"; return 0; }',
+          'TypeScript': 'const greeting: string = "Hello, World!";\\nconsole.log(greeting);'
+        };
+
+        alert(`✅ ${language} Code Generated (${level}):\\n\\n${codeExamples[language]}\\n\\nCode copied! 🚀`);
+        Notification.success(`${language} code generated! 👨‍💻`);
+      }, 2000);
+    }
+
+    // Content Writer
+    function generateContent() {
+      const topic = document.getElementById('writer-topic')?.value.trim();
+      const type = document.getElementById('selected-content-type')?.value;
+      
+      if (!topic) {
+        Notification.warning('Please describe your content');
+        return;
+      }
+
+      const btn = document.getElementById('generate-content-btn');
+      btn.disabled = true;
+      btn.textContent = '⏳ Generating...';
+
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.textContent = '✍️ Generate Content';
+        document.getElementById('writer-topic').value = '';
+
+        const samples = {
+          'blog': `📝 Blog Post: "${topic}"\n\nIntroduction: This is a compelling introduction to your topic...\n\nMain Points:\n• Point 1: Explanation\n• Point 2: Details\n• Point 3: Insights\n\nConclusion: Final thoughts and call-to-action.`,
+          'social': `📱 Social Media Post:\n\n"Check this out! 🚀 ${topic}\n\n#trending #content #awesome"\n\n👍 100 Likes | 💬 50 Comments`,
+          'email': `📧 Email:\n\nSubject: ${topic}\n\nHi,\n\nI wanted to share something interesting about ${topic}. [Your message here]\n\nBest regards`,
+          'product': `🛍️ Product Description:\n\n${topic}\n\n✨ Premium Quality\n🎯 Perfect for [use case]\n💰 Best Value\n⭐ 5/5 Stars`
+        };
+
+        alert(samples[type] || samples.blog);
+        Notification.success(`${type} content generated! ✍️`);
+      }, 2000);
+    }
+
+    // Logo Generator
+    function generateLogo() {
+      const name = document.getElementById('brand-name')?.value.trim();
+      const industry = document.getElementById('brand-industry')?.value;
+      const description = document.getElementById('brand-description')?.value.trim();
+      
+      if (!name || !description) {
+        Notification.warning('Please fill in all fields');
+        return;
+      }
+
+      const btn = document.getElementById('generate-logo-btn');
+      btn.disabled = true;
+      btn.textContent = '⏳ Generating...';
+
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.textContent = '🎯 Generate Logo';
+        
+        const output = document.getElementById('logo-output');
+        output.style.display = 'block';
+        output.innerHTML = `
+          <h4>Generated Logo & Brand Kit</h4>
+          <div style="background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(157, 78, 221, 0.2)); padding: 2rem; border-radius: 12px; text-align: center; margin-bottom: 1rem;">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">🎯</div>
+            <h3>${name}</h3>
+            <p style="color: var(--text-secondary);">${industry} • Modern Design</p>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+            <div style="background: #FF6B6B; padding: 1rem; border-radius: 8px; text-align: center; color: white;">Primary<br/>#FF6B6B</div>
+            <div style="background: #4ECDC4; padding: 1rem; border-radius: 8px; text-align: center; color: white;">Secondary<br/>#4ECDC4</div>
+            <div style="background: #95E1D3; padding: 1rem; border-radius: 8px; text-align: center;">Accent<br/>#95E1D3</div>
+          </div>
+          <button class="btn btn-secondary" style="width: 100%; margin-top: 1rem;" onclick="Notification.success('Logo downloaded! 🎯')">⬇️ Download Logo</button>
+        `;
+        Notification.success(`Logo for "${name}" generated! 🎯`);
+      }, 2500);
+    }
+
+    // Quiz Generator
+    function startQuiz() {
+      const topic = document.getElementById('quiz-topic')?.value;
+      const btn = document.getElementById('start-quiz-btn');
+      const container = document.getElementById('quiz-container');
+
+      btn.disabled = true;
+      btn.textContent = '⏳ Loading...';
+
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.textContent = '📝 Start Quiz';
+        container.style.display = 'block';
+
+        const quizzes = {
+          'Variables & Data Types': [
+            { q: 'What is a variable?', options: ['Storage for data', 'A function', 'A loop'], correct: 0 },
+            { q: 'What does "const" mean?', options: ['Constant', 'Constructor', 'Context'], correct: 0 }
+          ],
+          'Functions & Loops': [
+            { q: 'What is a function?', options: ['Reusable code block', 'A variable', 'A data type'], correct: 0 },
+            { q: 'How many types of loops?', options: ['3', '4', '5'], correct: 1 }
+          ],
+          'Object-Oriented Programming': [
+            { q: 'What is a class?', options: ['Blueprint for objects', 'A function', 'A loop'], correct: 0 },
+            { q: 'What is inheritance?', options: ['Getting properties from parent', 'A variable', 'A function'], correct: 0 }
+          ]
+        };
+
+        const questions = quizzes[topic] || quizzes['Variables & Data Types'];
+        let score = 0;
+        let currentQ = 0;
+
+        function showQuestion() {
+          if (currentQ >= questions.length) {
+            container.innerHTML = `
+              <div style="text-align: center; padding: 2rem;">
+                <h3>Quiz Complete! 🎉</h3>
+                <div style="font-size: 3rem; color: var(--accent);">Score: ${score}/${questions.length}</div>
+                <button class="btn btn-primary" onclick="location.reload()">Take Another Quiz</button>
+              </div>
+            `;
+            Notification.success(`Quiz completed! Score: ${score}/${questions.length} 🎉`);
+            return;
+          }
+
+          const q = questions[currentQ];
+          container.innerHTML = `
+            <h4>Question ${currentQ + 1}/${questions.length}</h4>
+            <p style="font-size: 1.1rem; margin: 1.5rem 0;">${q.q}</p>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+              ${q.options.map((opt, i) => `
+                <button class="btn btn-secondary" style="text-align: left;" onclick="handleAnswer(${i}, ${q.correct})">
+                  ${String.fromCharCode(65 + i)}. ${opt}
+                </button>
+              `).join('')}
+            </div>
+          `;
+        }
+
+        window.handleAnswer = (selected, correct) => {
+          if (selected === correct) {
+            score++;
+            Notification.success('Correct! ✅');
+          } else {
+            Notification.error('Wrong! ❌');
+          }
+          currentQ++;
+          showQuestion();
+        };
+
+        showQuestion();
+      }, 1500);
+    }
+
+    // Finance Expense Tracker
+    function addExpense() {
+      const amount = document.getElementById('expense-amount')?.value;
+      const category = document.getElementById('expense-category')?.value;
+      const date = document.getElementById('expense-date')?.value;
+
+      if (!amount || !date) {
+        Notification.warning('Please fill in all fields');
+        return;
+      }
+
+      let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+      expenses.push({
+        amount: parseFloat(amount),
+        category,
+        date,
+        id: Date.now()
+      });
+      localStorage.setItem('expenses', JSON.stringify(expenses));
+
+      document.getElementById('expense-amount').value = '';
+      document.getElementById('expense-date').value = '';
+
+      loadExpenses();
+      Notification.success(`Expense of $${amount} added! 💰`);
+    }
+
+    function loadExpenses() {
+      const expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+      const list = document.getElementById('expenses-list');
+      
+      if (expenses.length === 0) {
+        list.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">No expenses yet</p>';
+        return;
+      }
+
+      let total = 0;
+      let html = '<h4>Recent Expenses</h4><div style="display: flex; flex-direction: column; gap: 0.75rem;">';
+      
+      expenses.slice(-5).reverse().forEach(exp => {
+        total += exp.amount;
+        const categoryEmoji = { 'Food & Dining': '🍽️', 'Transportation': '🚗', 'Entertainment': '🎬', 'Shopping': '🛍️' };
+        html += `
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: rgba(0, 212, 255, 0.1); border-radius: 8px;">
+            <span>${categoryEmoji[exp.category] || '📊'} ${exp.category}</span>
+            <span style="color: var(--accent); font-weight: 600;">$${exp.amount.toFixed(2)}</span>
+            <button class="btn btn-sm btn-ghost" onclick="deleteExpense(${exp.id})" style="color: var(--error);">🗑️</button>
+          </div>
+        `;
+      });
+      
+      html += `</div><div style="margin-top: 1rem; padding: 1rem; background: rgba(0, 212, 255, 0.2); border-radius: 8px; text-align: center;"><strong>Total: $${total.toFixed(2)}</strong></div>`;
+      list.innerHTML = html;
+    }
+
+    function deleteExpense(id) {
+      let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+      expenses = expenses.filter(exp => exp.id !== id);
+      localStorage.setItem('expenses', JSON.stringify(expenses));
+      loadExpenses();
+      Notification.success('Expense deleted! 🗑️');
+    }
+  </script>
+</body>
+</html>

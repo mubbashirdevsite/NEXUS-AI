@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing Plans - NEXUS AI</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="dark-mode">
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <div class="nav-brand">✨ NEXUS AI</div>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="index.html#features" class="nav-link">Features</a></li>
+        <li><a href="pricing.html" class="nav-link active">Pricing</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="theme-toggle">
+          <button class="theme-option active" data-theme="dark">🌙</button>
+          <button class="theme-option" data-theme="light">☀️</button>
+        </div>
+        <a href="login.html" class="btn btn-secondary btn-sm">Login</a>
+        <a href="signup.html" class="btn btn-primary btn-sm">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Pricing Hero -->
+  <section class="section" style="margin-top: 60px; padding-top: 4rem;">
+    <div class="container text-center">
+      <h1>Simple, Transparent Pricing</h1>
+      <p style="font-size: 1.25rem; max-width: 600px; margin: 1rem auto 2rem;">Choose the perfect plan for your needs. Upgrade or downgrade anytime.</p>
+
+      <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; margin-bottom: 3rem;">
+        <span>Monthly</span>
+        <div style="background: rgba(255, 255, 255, 0.1); padding: 4px; border-radius: 8px; display: flex; gap: 4px;">
+          <button style="padding: 0.5rem 1rem; border: none; background: linear-gradient(135deg, var(--accent), var(--accent-purple)); color: var(--primary); border-radius: 6px; cursor: pointer; font-weight: 600;">Monthly</button>
+          <button style="padding: 0.5rem 1rem; border: none; background: transparent; color: var(--text-secondary); cursor: pointer;">Yearly</button>
+        </div>
+        <span>Yearly <span class="badge badge-primary">Save 20%</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Cards -->
+  <section class="section">
+    <div class="container">
+      <div class="grid grid-3">
+        <!-- Free Plan -->
+        <div class="card pricing-card">
+          <div class="pricing-header">
+            <h3>Free</h3>
+            <p>Get started with AI</p>
+          </div>
+          <div class="pricing-price">$0<span style="font-size: 1rem; color: var(--text-secondary);">/month</span></div>
+          <button class="btn btn-secondary" style="width: 100%;" onclick="window.location.href='signup.html'">Get Started</button>
+          
+          <ul class="pricing-features" style="margin-top: 1.5rem;">
+            <li class="pricing-feature">100 AI requests/month</li>
+            <li class="pricing-feature">5 projects</li>
+            <li class="pricing-feature">1GB storage</li>
+            <li class="pricing-feature">Basic chat support</li>
+            <li class="pricing-feature">Community access</li>
+          </ul>
+
+          <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
+            <p style="font-size: 0.875rem; color: var(--text-secondary);">Perfect for trying out</p>
+          </div>
+        </div>
+
+        <!-- Pro Plan -->
+        <div class="card pricing-card featured">
+          <div style="background: linear-gradient(135deg, var(--accent), var(--accent-purple)); padding: 8px 12px; border-radius: 6px; width: fit-content; margin-bottom: 1rem;">
+            <span style="color: white; font-size: 0.75rem; font-weight: 700;">🔥 MOST POPULAR</span>
+          </div>
+          <div class="pricing-header">
+            <h3>Pro</h3>
+            <p>For creators & developers</p>
+          </div>
+          <div class="pricing-price">$29<span style="font-size: 1rem; color: var(--text-secondary);">/month</span></div>
+          <button class="btn btn-primary" style="width: 100%;" onclick="window.location.href='signup.html'">Start 14-Day Trial</button>
+          
+          <ul class="pricing-features" style="margin-top: 1.5rem;">
+            <li class="pricing-feature">Unlimited AI requests</li>
+            <li class="pricing-feature">Unlimited projects</li>
+            <li class="pricing-feature">100GB storage</li>
+            <li class="pricing-feature">Priority email support</li>
+            <li class="pricing-feature">Advanced analytics</li>
+            <li class="pricing-feature">Team collaboration (3)</li>
+            <li class="pricing-feature">Custom integrations</li>
+            <li class="pricing-feature">API access</li>
+          </ul>
+
+          <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
+            <p style="font-size: 0.875rem; color: var(--text-secondary);">Best value for individuals</p>
+          </div>
+        </div>
+
+        <!-- Enterprise Plan -->
+        <div class="card pricing-card">
+          <div class="pricing-header">
+            <h3>Enterprise</h3>
+            <p>For large teams & organizations</p>
+          </div>
+          <div class="pricing-price">Custom</div>
+          <button class="btn btn-secondary" style="width: 100%;" onclick="alert('Scheduling demo...')">Schedule Demo</button>
+          
+          <ul class="pricing-features" style="margin-top: 1.5rem;">
+            <li class="pricing-feature">Everything in Pro</li>
+            <li class="pricing-feature">Unlimited team members</li>
+            <li class="pricing-feature">Unlimited storage</li>
+            <li class="pricing-feature">24/7 phone support</li>
+            <li class="pricing-feature">Dedicated account manager</li>
+            <li class="pricing-feature">SSO & SAML</li>
+            <li class="pricing-feature">Advanced security</li>
+            <li class="pricing-feature">Custom SLA</li>
+          </ul>
+
+          <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
+            <p style="font-size: 0.875rem; color: var(--text-secondary);">For enterprise-scale needs</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Table -->
+  <section class="section">
+    <div class="container">
+      <h2 style="text-align: center; margin-bottom: 3rem;">Feature Comparison</h2>
+
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--border-color);">
+              <th style="padding: 1rem; text-align: left; color: var(--text-secondary); font-weight: 600;">Feature</th>
+              <th style="padding: 1rem; text-align: center; color: var(--text-secondary); font-weight: 600;">Free</th>
+              <th style="padding: 1rem; text-align: center; color: var(--accent); font-weight: 600;">Pro</th>
+              <th style="padding: 1rem; text-align: center; color: var(--text-secondary); font-weight: 600;">Enterprise</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--border-color);">
+              <td style="padding: 1rem;">AI Chat</td>
+              <td style="padding: 1rem; text-align: center;">✓</td>
+              <td style="padding: 1rem; text-align: center;">✓</td>
+              <td style="padding: 1rem; text-align: center;">✓</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-color);">
+              <td style="padding: 1rem;">Image Generation</td>
+              <td style="padding: 1rem; text-align: center;">Limited</td>
+              <td style="padding: 1rem; text-align: center;">Unlimited</td>
+              <td style="padding: 1rem; text-align: center;">Unlimited</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-color);">
+              <td style="padding: 1rem;">Video Generation</td>
+              <td style="padding: 1rem; text-align: center;">✗</td>
+              <td style="padding: 1rem; text-align: center;">✓</td>
+              <td style="padding: 1rem; text-align: center;">✓</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-color);">
+              <td style="padding: 1rem;">Code Generation</td>
+              <td style="padding: 1rem; text-align: center;">✗</td>
+              <td style="padding: 1rem; text-align: center;">✓</td>
+              <td style="padding: 1rem; text-align: center;">✓</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-color);">
+              <td style="padding: 1rem;">Team Collaboration</td>
+              <td style="padding: 1rem; text-align: center;">✗</td>
+              <td style="padding: 1rem; text-align: center;">Up to 3</td>
+              <td style="padding: 1rem; text-align: center;">Unlimited</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-color);">
+              <td style="padding: 1rem;">Storage</td>
+              <td style="padding: 1rem; text-align: center;">1GB</td>
+              <td style="padding: 1rem; text-align: center;">100GB</td>
+              <td style="padding: 1rem; text-align: center;">Unlimited</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-color);">
+              <td style="padding: 1rem;">API Access</td>
+              <td style="padding: 1rem; text-align: center;">✗</td>
+              <td style="padding: 1rem; text-align: center;">✓</td>
+              <td style="padding: 1rem; text-align: center;">✓</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-color);">
+              <td style="padding: 1rem;">Support</td>
+              <td style="padding: 1rem; text-align: center;">Community</td>
+              <td style="padding: 1rem; text-align: center;">Email</td>
+              <td style="padding: 1rem; text-align: center;">24/7 Phone</td>
+            </tr>
+            <tr>
+              <td style="padding: 1rem;">Custom SLA</td>
+              <td style="padding: 1rem; text-align: center;">✗</td>
+              <td style="padding: 1rem; text-align: center;">✗</td>
+              <td style="padding: 1rem; text-align: center;">✓</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Add-Ons Section -->
+  <section class="section" style="background: rgba(0, 212, 255, 0.05);">
+    <div class="container">
+      <h2 style="text-align: center; margin-bottom: 3rem;">Add-Ons & Extras</h2>
+
+      <div class="grid grid-3">
+        <div class="card card-glass">
+          <h4>Extra Storage</h4>
+          <p style="font-size: 1.5rem; color: var(--accent); font-weight: 700;">$5<span style="font-size: 0.875rem; color: var(--text-secondary);">/100GB</span></p>
+          <button class="btn btn-secondary" style="width: 100%; margin-top: 1rem;" onclick="alert('Added to cart')">Add to Plan</button>
+        </div>
+
+        <div class="card card-glass">
+          <h4>Priority Support</h4>
+          <p style="font-size: 1.5rem; color: var(--accent); font-weight: 700;">$15<span style="font-size: 0.875rem; color: var(--text-secondary);">/month</span></p>
+          <button class="btn btn-secondary" style="width: 100%; margin-top: 1rem;" onclick="alert('Added to cart')">Add to Plan</button>
+        </div>
+
+        <div class="card card-glass">
+          <h4>Premium Models</h4>
+          <p style="font-size: 1.5rem; color: var(--accent); font-weight: 700;">$20<span style="font-size: 0.875rem; color: var(--text-secondary);">/month</span></p>
+          <button class="btn btn-secondary" style="width: 100%; margin-top: 1rem;" onclick="alert('Added to cart')">Add to Plan</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section">
+    <div class="container" style="max-width: 800px;">
+      <h2 style="text-align: center; margin-bottom: 3rem;">Pricing FAQs</h2>
+
+      <div class="card card-glass" style="margin-bottom: 1rem;">
+        <h4 style="cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">Can I change plans anytime?</h4>
+        <p style="display: block; margin-top: 1rem;">Yes! You can upgrade or downgrade your plan at any time. Changes take effect immediately.</p>
+      </div>
+
+      <div class="card card-glass" style="margin-bottom: 1rem;">
+        <h4 style="cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">Do you offer refunds?</h4>
+        <p style="display: none; margin-top: 1rem;">We offer a 30-day money-back guarantee if you're not satisfied with the service.</p>
+      </div>
+
+      <div class="card card-glass" style="margin-bottom: 1rem;">
+        <h4 style="cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">What payment methods do you accept?</h4>
+        <p style="display: none; margin-top: 1rem;">We accept all major credit cards, PayPal, Apple Pay, and Google Pay.</p>
+      </div>
+
+      <div class="card card-glass" style="margin-bottom: 1rem;">
+        <h4 style="cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';">Do you offer discounts for annual billing?</h4>
+        <p style="display: none; margin-top: 1rem;">Yes! Annual plans come with a 20% discount compared to monthly billing.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section" style="background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(157, 78, 221, 0.1));">
+    <div class="container text-center">
+      <h2>Ready to get started?</h2>
+      <p style="font-size: 1.125rem; margin: 1rem 0 2rem;">No credit card required. 14-day free trial on Pro plan.</p>
+      <a href="signup.html" class="btn btn-primary btn-lg">Start Free Trial</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="background: rgba(15, 15, 35, 0.8); border-top: 1px solid var(--border-color); padding: 3rem 1rem; text-align: center; color: var(--text-secondary);">
+    <p>© 2024 NEXUS AI. All rights reserved. 🚀</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    Analytics.trackPageView('/pricing');
+  </script>
+</body>
+</html>
